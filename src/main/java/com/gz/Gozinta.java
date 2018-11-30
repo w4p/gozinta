@@ -1,12 +1,15 @@
 package com.gz;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Gozinta {
 
+    //NOT USING, DEV PURPOSE
     public static List<List<Integer>> gn(int n) {
         if (n > 1) {
             List<List<Integer>> result = new ArrayList<>();
@@ -25,9 +28,54 @@ public class Gozinta {
         }
     }
 
+    //NOT USING, DEV PURPOSE
+    public static Long gnn(int n) {
+        if (n > 1) {
+            AtomicLong am = new AtomicLong(0);
+            for (int i = 2; i < n; i++) {
+                if (n % i < 1) {
+                    Long var = gnn(i);
+                    am.addAndGet(var);
+                }
+            }
+            return am.incrementAndGet();
+        } else {
+            return 1L;
+        }
+    }
+
+    public static BigInteger gnn(BigInteger n) {
+        if (n.compareTo(BigInteger.ONE) > 0) {
+            BigInteger am = BigInteger.valueOf(0l);
+            for (BigInteger i = BigInteger.valueOf(2L); i.compareTo(n)<0; i=i.add(BigInteger.ONE)) {
+                if (n.divideAndRemainder(i)[1].compareTo(BigInteger.ONE) < 0) {
+                    BigInteger var = gnn(i);
+                    am = am.add(var);
+                }
+            }
+            am = am.add(BigInteger.ONE);
+            return am;
+        } else {
+            return BigInteger.ONE;
+        }
+    }
+
     public static void main(String[] args) {
-        List<List<Integer>> r = Gozinta.gn(48);
-        System.out.println(r.size());
-        System.out.println(r);
+        //CALCULATE SUM
+        //NUMBER CAN BE BIGGER THAN 10^16 :)
+//        BigInteger limit = BigInteger.TEN.pow(16);
+        BigInteger limit = BigInteger.valueOf(48L);
+        BigInteger digit = BigInteger.ONE;
+        BigInteger sum = BigInteger.ZERO;
+        while (digit.compareTo(limit) <= 0) {
+            BigInteger size = Gozinta.gnn(digit);
+            if (size.compareTo(digit) == 0) {
+                sum = sum.add(digit);
+            }
+
+            digit = digit.add(BigInteger.ONE);
+        }
+
+        System.out.println("TOTAL SUM: " + sum);
     }
 }
