@@ -64,7 +64,7 @@ public class Gozinta {
         //CALCULATE SUM
         //NUMBER CAN BE BIGGER THAN 10^16 :)
 //        BigInteger limit = BigInteger.TEN.pow(16);
-        BigInteger limit = BigInteger.valueOf(48L);
+        BigInteger limit = BigInteger.valueOf(48L); //NUMBER CAN BE GREATER THAN 10^16 :)
         BigInteger digit = BigInteger.ONE;
         BigInteger sum = BigInteger.ZERO;
         while (digit.compareTo(limit) <= 0) {
