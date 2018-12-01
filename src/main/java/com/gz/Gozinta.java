@@ -61,21 +61,9 @@ public class Gozinta {
     }
 
     public static void main(String[] args) {
-        //CALCULATE SUM
-        //NUMBER CAN BE BIGGER THAN 10^16 :)
-//        BigInteger limit = BigInteger.TEN.pow(16);
-        BigInteger limit = BigInteger.valueOf(48L); //NUMBER CAN BE GREATER THAN 10^16 :)
-        BigInteger digit = BigInteger.ONE;
-        BigInteger sum = BigInteger.ZERO;
-        while (digit.compareTo(limit) <= 0) {
-            BigInteger size = Gozinta.gnn(digit);
-            if (size.compareTo(digit) == 0) {
-                sum = sum.add(digit);
-            }
 
-            digit = digit.add(BigInteger.ONE);
-        }
+        ParallelCalculation pc = new ParallelCalculation(BigInteger.TEN.pow(16));
+        System.out.println("TOTAL SUM" + pc.calculateSum());
 
-        System.out.println("TOTAL SUM: " + sum);
     }
 }
